@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product } from 'src/app/interfaces/product';
+import { Product } from '../../interfaces/product';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -8,13 +9,13 @@ import { Product } from 'src/app/interfaces/product';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  products:any = [];
+  products!: Product[];
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.http.get('http://localhost:8000/api/products').subscribe(
-      (products: Product[]) => {
-      this.products = products;
+      (products: Partial<Observer<Product[]>>) => {
+      this.products != products;
     }
     );
   }
